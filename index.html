@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- Heading -->
+    <header class="container-fluid text-center bg-success text-white"><h1>Weather Forecast</h1></header>
+
+    <!--Main Body Content-->
+    <div class="conatiner-fluid">
+        <div class="row">
+            <!--Search and Search History -->
+            <div class="col-lg-3 bg-light">
+                <!--Search Form-->
+                <h4 class="mx-3">Search for a city</h4>
+                <div class="form-inline form-group">
+                    <input class="form-control m-2" type="text" id="searchValue" />
+                    <button class="btn btn-primary m-2" id="searchButton"> <i class="fa fa-search"></i> </button>
+                </div>
+                <!--Unordered list on which previously searched cities can be appended to-->
+                <ul class="list-group history"></ul>
+            </div>
+
+            <!--Today;s Weather and Forecast-->
+            <div class="col-lg-9">
+                <!--Div on which today's weather will be appended-->
+                <div id="today"></div>
+                <!--Div on which the five day forecast will be appended-->
+                <div id="fiveDay"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>
