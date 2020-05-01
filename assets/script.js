@@ -71,6 +71,9 @@ var getFiver = function(city){
     url: queryURL,
     method: "GET"
     }).then(function(response){
+        //empty the forecast section
+        $("#fiveDay").empty();
+        $("#forecastHeading").empty();
         //add heading for forecast section
         var forecastHeading = $("<h3>").text("5 Day Forecast").attr("class", "m-3");
         $("#forecastHeading").append(forecastHeading);
@@ -89,8 +92,6 @@ var getFiver = function(city){
                 var forecastRH = $("<p>").text("Humidity: "+response.list[i].main.temp + "%");
                 var forecastIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/"+response.list[i].weather[0].icon+".png");
 
-                //empty the forecast section
-                forecastCol.empty();
                 //append the data to the page
                 forecast.append(forecastCol);
                 forecastCol.append(forecastCard);
