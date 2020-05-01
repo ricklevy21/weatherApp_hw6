@@ -36,9 +36,9 @@ var searchCity = function(city){
         var todayCardTitle = $("<h3>").addClass("card-title mx-3").text(cityName + " " + dateToday);
         var icon = $("<img>").attr("src","http://openweathermap.org/img/w/"+ response.weather[0].icon+".png").height(60).width(60)
         var todayCardData = $("<ul>").addClass("card-text mx-3 mb-3").attr("id", "todayData");
-        var todayTemp = $("<li>").text("Temperature: "+ temp + " \xB0F");
-        var todayRH = $("<li>").text("Relative Humidity: "+ rh + "%");
-        var todayWind = $("<li>").text("Wind Speed: "+wind+" mph");
+        var todayTemp = $("<p>").text("Temperature: "+ temp + " \xB0F");
+        var todayRH = $("<p>").text("Relative Humidity: "+ rh + "%");
+        var todayWind = $("<p>").text("Wind Speed: "+wind+" mph");
         
         //clear the Today's Weather Section
         today.empty();
@@ -82,7 +82,7 @@ var getFiver = function(city){
                 var forecast = $("#fiveDay");
                 var forecastCol = $("<div>").attr("class", "col-md-2");
                 var forecastCard = $("<div>").attr("class", "card bg-primary");
-                var forecastCardTitle = $("<div>").attr("class", "card-title text-white");
+                var forecastCardTitle = $("<div>").attr("class", "card-title text-white ml-3 mt-3");
                 var forecastCardText = $("<div>").attr("class", "text-white m-3");
                 var forecastDate = $("<h5>").text(new Date(response.list[i].dt_txt).toLocaleDateString());
                 var forecastTemp = $("<p>").text("Temp: "+response.list[i].main.temp + " \xB0F");
@@ -120,13 +120,21 @@ var UV = function(lat, lon){
     url: queryURL,
     method: "GET"
     }).then(function(response){
-        //append UV index to today's weather card
+        console.log(response)
+        //variables for UV index elements
         var UVvalue = response.value;
-        var UVindex = $("<li>").text("UV Index: "+UVvalue);
-        $("#todayData").append(UVindex);
-        
-
-
+        var UVindex = $("<p>").text("UV Index: ");
+        var UVindexVal = $("<span>").text(UVvalue);
+        //color code UV index
+        if (UVvalue >= 0 && UVvalue <= 2){
+            UVindexVal.addClass("btn btn-success")
+        } else if (UVvalue >= 3 && UVvalue <= 7){
+            UVindexVal.addClass("btn btn-warning")
+        } else if (UVvalue >= 8){
+            UVindexVal.addClass("btn btn-danger")
+        } else {}
+        //append UV index to today's weather card
+        $("#todayData").append(UVindex.append(UVindexVal));
     })
 }
 
