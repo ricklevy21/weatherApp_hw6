@@ -7,7 +7,18 @@ $("#searchButton").on("click", function(){
     
 })
 
-//use the variable city to run a query on the open weather map api
+
+
+//array that holds all previous searches
+var searchHistory = [];
+
+//function that adds searches to the history section
+var addToHistory = function(city){
+    var newCity = $("<li>");
+    newCity.text(city).attr("class", "list-group-item list-group-item-action");
+    $("#history").append(newCity);
+
+}
 
 //function to get today's weather in city input by user
 var searchCity = function(city){
@@ -20,8 +31,16 @@ var searchCity = function(city){
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        //if statement that checks if history array has the city searched or not. if it doesnt add it to the list.
-        
+
+        //check if city is already in history, if it's not add new search to history array
+        if (searchHistory.indexOf(city) === -1) {
+            //add new city to array
+            searchHistory.push(city)
+            //save array to local storage
+            localStorage.setItem("cityStorage", JSON.stringify(searchHistory));
+            //add the city to the history list on the page
+            addToHistory(city);
+        }
         
         //set variables for data to display
         var cityName = response.name;
@@ -66,7 +85,6 @@ var getFiver = function(city){
     var APIkey = "30274fe75136ca85c5beb0d0cc14ac7a"
     queryURL = weatherURL+city+"&appid="+APIkey+"&units=imperial"
     //make the ajax call
-    console.log(queryURL)
     $.ajax({
     url: queryURL,
     method: "GET"
@@ -116,22 +134,20 @@ var UV = function(lat, lon){
     var APIkey = "30274fe75136ca85c5beb0d0cc14ac7a"
     queryURL = weatherURL+"&appid="+APIkey + "&lat=" + lat +"&lon="+ lon
     //make the ajax call
-    console.log(queryURL)
     $.ajax({
     url: queryURL,
     method: "GET"
     }).then(function(response){
-        console.log(response)
         //variables for UV index elements
         var UVvalue = response.value;
         var UVindex = $("<p>").text("UV Index: ");
         var UVindexVal = $("<span>").text(UVvalue);
         //color code UV index
-        if (UVvalue >= 0 && UVvalue <= 2){
+        if (Math.floor(UVvalue) >= 0 && Math.floor(UVvalue) <= 2){
             UVindexVal.addClass("btn btn-success")
-        } else if (UVvalue >= 3 && UVvalue <= 7){
+        } else if (Math.floor(UVvalue) >= 3 && Math.floor(UVvalue) <= 7){
             UVindexVal.addClass("btn btn-warning")
-        } else if (UVvalue >= 8){
+        } else if (Math.floor(UVvalue) >= 8){
             UVindexVal.addClass("btn btn-danger")
         } else {}
         //append UV index to today's weather card
@@ -140,7 +156,31 @@ var UV = function(lat, lon){
 }
 
 
+//function that adds values from array in local storage to the history array, and then appends items from the history array onto the history section
+var getStorageHist = function(){
+    //grab items from local history
+    var fromStor = localStorage.getItem("cityStorage")
+    //parse items from local history
+    fromStor = JSON.parse(fromStor);
+    //loop through items from local history, adding each index to the searchHistory array (if the array fromStor is not null)
+    if (fromStor !== null){
+        for (var i = 0; i < fromStor.length; i++){
+            searchHistory.push(fromStor[i]);
+        }
+        for (var i = 0; i < searchHistory.length; i++){
+            var addCity = $("<li>");
+            addCity.text(searchHistory[i]).attr("class", "list-group-item list-group-item-action");
+            $("#history").append(addCity);
+        }
+    }
+}
+getStorageHist();
 
+//event listener for history section
+$("#history").on("click", "li", function(){
+    searchCity($(this).text());
+    getFiver($(this).text());
+})
 
 
 
@@ -151,26 +191,29 @@ var UV = function(lat, lon){
 TO DO LIST
 
 -x-Grab user's text input and put the value .val() into a variable that is used in the ajax call
---Create ajax call that gets the following from weather api
-    --city name
-    --today's date
-    --icon
-    --temperature in F (convert if needed)
-    --RH
-    --Wind speed in mph (convert if needed)
-    --UV index
+-x-Create ajax call that gets the following from weather api
+    -x-city name
+    -x-today's date
+    -x-icon
+    -x-temperature in F (convert if needed)
+    -x-RH
+    -x-Wind speed in mph (convert if needed)
+    -x-UV index
 
---Create ajax call that gets the following from weather api
-    --5 day forecast
-        --date
-        --icon
-        --temp
-        --rh
---Function that adds a search to the search history in the form of a button
---Function that clears the input after the search button is clicked
--x-Function that displays today's weather on the page
---Function that displays the 5 day forecast on the page
--x-Clear the Today's Weather Section when search button is clicked
+-x-Create ajax call that gets the following from weather api
+    -x-5 day forecast
+        -x-date
+        -x-icon
+        -x-temp
+        -x-rh
+    -x-Function that clears the input after the search button is clicked
+    -x-Function that displays today's weather on the page
+    -x-Function that displays the 5 day forecast on the page
+    -x-Clear the Today's Weather Section when search button is clicked
+    -x-Check if city already exists in history
+    -x-Function that adds any value searched to an array in local storage, if not there already
+    -x-Function that adds values from array in local storage to the history section-gonna need a loop dee loop
+    -x-add event listener to each city (maybe use delegation?) so that when clicked, performs search based on the value of the text
 
 
 

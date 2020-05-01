@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Forecast</title>
+    <title>Weather</title>
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--Font Awesome-->
@@ -11,7 +11,7 @@
 </head>
 <body>
     <!-- Heading -->
-    <header class="container-fluid text-center bg-success text-white"><h1>Weather Forecast</h1></header>
+    <header class="container-fluid text-center bg-success text-white py-3"><h1>Rick's Most Excellent Weather App</h1></header>
 
     <!--Main Body Content-->
     <div class="conatiner-fluid">
@@ -25,7 +25,7 @@
                     <button class="btn btn-primary m-2" id="searchButton"> <i class="fa fa-search"></i> </button>
                 </div>
                 <!--Unordered list on which previously searched cities can be appended to-->
-                <ul class="list-group history"></ul>
+                <ul class="list-group" id="history"></ul>
             </div>
 
             <!--Today;s Weather and Forecast-->
