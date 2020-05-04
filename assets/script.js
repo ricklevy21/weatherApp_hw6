@@ -25,7 +25,7 @@ $( document ).ready(function() {
     //function to get today's weather in city input by user
     var searchCity = function(city){
         //set the variables to build the URL
-        var weatherURL = "http://api.openweathermap.org/data/2.5/weather?q="
+        var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q="
         var APIkey = "30274fe75136ca85c5beb0d0cc14ac7a"
         queryURL = weatherURL+city+"&appid="+APIkey+"&units=imperial"
         //make the ajax call
@@ -83,7 +83,7 @@ $( document ).ready(function() {
     //function to get the 5 day forecast for city input by user
     var getFiver = function(city){
         //set the variables to build the URL
-        var weatherURL = "http://api.openweathermap.org/data/2.5/forecast?q="
+        var weatherURL = "https://api.openweathermap.org/data/2.5/forecast?q="
         var APIkey = "30274fe75136ca85c5beb0d0cc14ac7a"
         queryURL = weatherURL+city+"&appid="+APIkey+"&units=imperial"
         //make the ajax call
@@ -132,7 +132,7 @@ $( document ).ready(function() {
     //function to get the UV index for lat/lon that matches the city input by the user
     var UV = function(lat, lon){
         //set the variables to build the URL
-        var weatherURL = "http://api.openweathermap.org/data/2.5/uvi?"
+        var weatherURL = "https://api.openweathermap.org/data/2.5/uvi?"
         var APIkey = "30274fe75136ca85c5beb0d0cc14ac7a"
         queryURL = weatherURL+"&appid="+APIkey + "&lat=" + lat +"&lon="+ lon
         //make the ajax call
